@@ -5,13 +5,29 @@
 #results {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 img {
     width: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card {
+    /* border: 3px solid red; */
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 200px;
+    padding-bottom: 25px;
 }
 
+.email {
+    padding-bottom: 7px;
+}
+.address {
+    padding-bottom: 7px;
+}

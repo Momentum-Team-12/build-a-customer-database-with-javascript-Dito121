@@ -653,15 +653,33 @@ let resultsDiv = document.getElementById("results")
 
 function buildResults(customerArray) {
   for (let customer of customerArray) {
-    let newDiv = document.createElement('div')
+    let cardDiv = document.createElement('div')
+    cardDiv.classList.add("card")
+
     let image = document.createElement("img")
-    let NAME = document.createElement('h2')
     image.src = customer.thumbnail
+
+    let NAME = document.createElement('h2')
     NAME.innerText = `${customer.name} \n`
-    newDiv.innerText = `${customer.email} \n ${customer.address} \n DOB:  ${customer.birthdate} \n Customer since:  ${customer.registered}`
-    resultsDiv.appendChild(image)
-    resultsDiv.appendChild(NAME)
-    resultsDiv.appendChild(newDiv)
+
+    let textEmail = document.createElement('div')
+    textEmail.classList.add("email")
+    textEmail.innerText = `${customer.email}`
+
+    let textAddress = document.createElement('div')
+    textEmail.classList.add("address")
+    textAddress.innerText = `${customer.address}`
+
+    let textDates = document.createElement('div')
+    textDates.classList.add("dates")
+    textDates.innerText = `DOB: ${customer.birthdate} \n Customer since:  ${customer.registered}`
+
+    cardDiv.appendChild(image)
+    cardDiv.appendChild(NAME)
+    cardDiv.appendChild(textEmail)
+    cardDiv.appendChild(textAddress)
+    cardDiv.appendChild(textDates)
+    resultsDiv.appendChild(cardDiv)
   }
 }
 
