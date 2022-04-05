@@ -552,3 +552,117 @@ const customers = [
     nat: 'US'
   }
 ]
+
+const usStates = [
+  { name: 'ALABAMA', abbreviation: 'AL' },
+  { name: 'ALASKA', abbreviation: 'AK' },
+  { name: 'AMERICAN SAMOA', abbreviation: 'AS' },
+  { name: 'ARIZONA', abbreviation: 'AZ' },
+  { name: 'ARKANSAS', abbreviation: 'AR' },
+  { name: 'CALIFORNIA', abbreviation: 'CA' },
+  { name: 'COLORADO', abbreviation: 'CO' },
+  { name: 'CONNECTICUT', abbreviation: 'CT' },
+  { name: 'DELAWARE', abbreviation: 'DE' },
+  { name: 'DISTRICT OF COLUMBIA', abbreviation: 'DC' },
+  { name: 'FEDERATED STATES OF MICRONESIA', abbreviation: 'FM' },
+  { name: 'FLORIDA', abbreviation: 'FL' },
+  { name: 'GEORGIA', abbreviation: 'GA' },
+  { name: 'GUAM', abbreviation: 'GU' },
+  { name: 'HAWAII', abbreviation: 'HI' },
+  { name: 'IDAHO', abbreviation: 'ID' },
+  { name: 'ILLINOIS', abbreviation: 'IL' },
+  { name: 'INDIANA', abbreviation: 'IN' },
+  { name: 'IOWA', abbreviation: 'IA' },
+  { name: 'KANSAS', abbreviation: 'KS' },
+  { name: 'KENTUCKY', abbreviation: 'KY' },
+  { name: 'LOUISIANA', abbreviation: 'LA' },
+  { name: 'MAINE', abbreviation: 'ME' },
+  { name: 'MARSHALL ISLANDS', abbreviation: 'MH' },
+  { name: 'MARYLAND', abbreviation: 'MD' },
+  { name: 'MASSACHUSETTS', abbreviation: 'MA' },
+  { name: 'MICHIGAN', abbreviation: 'MI' },
+  { name: 'MINNESOTA', abbreviation: 'MN' },
+  { name: 'MISSISSIPPI', abbreviation: 'MS' },
+  { name: 'MISSOURI', abbreviation: 'MO' },
+  { name: 'MONTANA', abbreviation: 'MT' },
+  { name: 'NEBRASKA', abbreviation: 'NE' },
+  { name: 'NEVADA', abbreviation: 'NV' },
+  { name: 'NEW HAMPSHIRE', abbreviation: 'NH' },
+  { name: 'NEW JERSEY', abbreviation: 'NJ' },
+  { name: 'NEW MEXICO', abbreviation: 'NM' },
+  { name: 'NEW YORK', abbreviation: 'NY' },
+  { name: 'NORTH CAROLINA', abbreviation: 'NC' },
+  { name: 'NORTH DAKOTA', abbreviation: 'ND' },
+  { name: 'NORTHERN MARIANA ISLANDS', abbreviation: 'MP' },
+  { name: 'OHIO', abbreviation: 'OH' },
+  { name: 'OKLAHOMA', abbreviation: 'OK' },
+  { name: 'OREGON', abbreviation: 'OR' },
+  { name: 'PALAU', abbreviation: 'PW' },
+  { name: 'PENNSYLVANIA', abbreviation: 'PA' },
+  { name: 'PUERTO RICO', abbreviation: 'PR' },
+  { name: 'RHODE ISLAND', abbreviation: 'RI' },
+  { name: 'SOUTH CAROLINA', abbreviation: 'SC' },
+  { name: 'SOUTH DAKOTA', abbreviation: 'SD' },
+  { name: 'TENNESSEE', abbreviation: 'TN' },
+  { name: 'TEXAS', abbreviation: 'TX' },
+  { name: 'UTAH', abbreviation: 'UT' },
+  { name: 'VERMONT', abbreviation: 'VT' },
+  { name: 'VIRGIN ISLANDS', abbreviation: 'VI' },
+  { name: 'VIRGINIA', abbreviation: 'VA' },
+  { name: 'WASHINGTON', abbreviation: 'WA' },
+  { name: 'WEST VIRGINIA', abbreviation: 'WV' },
+  { name: 'WISCONSIN', abbreviation: 'WI' },
+  { name: 'WYOMING', abbreviation: 'WY' }
+]
+
+function nameToAbbr (stateName) {
+  const idx = usStates.findIndex(function (state) {
+    return state.name === stateName.toUpperCase()
+  })
+
+  if (idx === -1) {
+    return null
+  }
+
+  return usStates[idx].abbreviation
+}
+
+let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+function monthToMonth(numberOfMonth) {
+  return months[Number(numberOfMonth)-1]
+}
+
+function buildNewCustomers(arrayOfCustomers) {
+  let newData = []
+  for (let person of arrayOfCustomers) {
+    let name = person.name.first.slice(0,1).toUpperCase() + person.name.first.slice(1) +' '+ person.name.last.slice(0,1).toUpperCase() + person.name.last.slice(1)
+    let address = person.location.street.number +' '+ person.location.street.name +' '+  person.location.city +', '+ nameToAbbr(person.location.state) +' '+ person.location.postcode
+    let birthdate = monthToMonth(person.dob.date.slice(5,7)) +' '+ person.dob.date.slice(8,10) + ", " + person.dob.date.slice(0,4)
+    let registered = monthToMonth(person.registered.date.slice(5,7)) +' '+ person.registered.date.slice(8,10) + ", " + person.registered.date.slice(0,4)
+    let thumbnail = person.picture.thumbnail
+    let email = person.email
+    newData.push({name, address, birthdate, registered, thumbnail, email})
+  }
+  return newData
+}
+
+let newCustomers = buildNewCustomers(customers)
+
+let resultsDiv = document.getElementById("results")
+console.log(resultsDiv)
+
+
+function buildResults(customerArray) {
+  for (let customer of customerArray) {
+    let newDiv = document.createElement('div')
+    let image = document.createElement("img")
+    image.src = customer.thumbnail
+    newDiv.innerText = `${customer.name} ${customer.email} ${customer.address} DOB:  ${customer.birthdate} customer since:  ${customer.registered}}`
+    resultsDiv.appendChild(image)
+    resultsDiv.appendChild(newDiv)
+    console.log(resultsDiv)
+  }
+}
+
+console.log(buildResults(newCustomers))
