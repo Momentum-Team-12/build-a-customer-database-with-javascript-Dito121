@@ -634,35 +634,35 @@ function monthToMonth(numberOfMonth) {
 }
 
 function buildNewCustomers(arrayOfCustomers) {
-  let newData = []
+  let newCustomers = []
   for (let person of arrayOfCustomers) {
     let name = person.name.first.slice(0,1).toUpperCase() + person.name.first.slice(1) +' '+ person.name.last.slice(0,1).toUpperCase() + person.name.last.slice(1)
-    let address = person.location.street.number +' '+ person.location.street.name +' '+  person.location.city +', '+ nameToAbbr(person.location.state) +' '+ person.location.postcode
+    let address = person.location.street.number +' '+ person.location.street.name +'\n '+  person.location.city +', '+ nameToAbbr(person.location.state) +' '+ person.location.postcode
     let birthdate = monthToMonth(person.dob.date.slice(5,7)) +' '+ person.dob.date.slice(8,10) + ", " + person.dob.date.slice(0,4)
     let registered = monthToMonth(person.registered.date.slice(5,7)) +' '+ person.registered.date.slice(8,10) + ", " + person.registered.date.slice(0,4)
     let thumbnail = person.picture.thumbnail
     let email = person.email
-    newData.push({name, address, birthdate, registered, thumbnail, email})
+    newCustomers.push({name, address, birthdate, registered, thumbnail, email})
   }
-  return newData
+  return newCustomers
 }
 
 let newCustomers = buildNewCustomers(customers)
 
 let resultsDiv = document.getElementById("results")
-console.log(resultsDiv)
-
 
 function buildResults(customerArray) {
   for (let customer of customerArray) {
     let newDiv = document.createElement('div')
     let image = document.createElement("img")
+    let NAME = document.createElement('h2')
     image.src = customer.thumbnail
-    newDiv.innerText = `${customer.name} ${customer.email} ${customer.address} DOB:  ${customer.birthdate} customer since:  ${customer.registered}}`
+    NAME.innerText = `${customer.name} \n`
+    newDiv.innerText = `${customer.email} \n ${customer.address} \n DOB:  ${customer.birthdate} \n Customer since:  ${customer.registered}`
     resultsDiv.appendChild(image)
+    resultsDiv.appendChild(NAME)
     resultsDiv.appendChild(newDiv)
-    console.log(resultsDiv)
   }
 }
 
-console.log(buildResults(newCustomers))
+buildResults(newCustomers)
