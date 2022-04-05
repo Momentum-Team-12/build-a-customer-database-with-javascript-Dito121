@@ -34,7 +34,7 @@ function buildResults(customerArray) {
         let image = document.createElement("img")
         image.src = customer.thumbnail
 
-        let NAME = document.createElement('h2')
+        let NAME = document.createElement('h3')
         NAME.innerText = `${customer.name} \n`
 
         let textEmail = document.createElement('div')
@@ -42,7 +42,7 @@ function buildResults(customerArray) {
         textEmail.innerText = `${customer.email}`
 
         let textAddress = document.createElement('div')
-        textEmail.classList.add("address")
+        textAddress.classList.add("address")
         textAddress.innerText = `${customer.address}`
 
         let textDates = document.createElement('div')
